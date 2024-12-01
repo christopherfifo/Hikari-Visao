@@ -32,9 +32,8 @@ include('../libraries/php/avisosl.php');
 		<?php include('../includes/components/saidebar.php') ?>
 		
 
-		<div class="content-wrapper color">
-			<?php include('../includes/components/wrapper.php') ?> 
-            <main>
+		<div class="content-wrapper color"> 
+        <main>
         <section class="notice-board">
             <h1>Quadro de Avisos</h1>
 
@@ -49,18 +48,6 @@ include('../libraries/php/avisosl.php');
                 </form>
             </div>
 
-            <div class="notice">
-                <h2>Aviso 2</h2>
-                <p>Descrição do aviso 2. Aqui você pode fornecer mais detalhes sobre o aviso para os usuários.</p>
-
-                <form id="response-form-2" class="response-form">
-                    <label for="response-2">Sua Resposta:</label>
-                    <textarea id="response-2" name="response-2" rows="4" placeholder="Digite sua resposta aqui..."></textarea>
-                    <button type="submit">Enviar Resposta</button>
-                </form>
-            </div>
-
-            <!-- Adicione mais avisos conforme necessário -->
         </section>
     </main>
 		</div>
@@ -74,7 +61,6 @@ include('../libraries/php/avisosl.php');
 	<script src="../adminlte/plugins/jquery/jquery.min.js"></script>
 	<script src="../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="../adminlte/dist/js/adminlte.min.js"></script>
-	<script src="../adminlte/dist/js/demo.js"></script>
 </body>
 
 </html>

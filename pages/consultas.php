@@ -18,6 +18,22 @@ include('../libraries/php/consultasl.php');
     <link rel="stylesheet" href="../css/consultas.css">
     <script src="../libraries/javascript/consultasl.js" defer></script>
 </head>
+<style>
+    html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1;
+    padding-bottom: 20px; 
+}
+</style>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
     <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>

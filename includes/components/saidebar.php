@@ -134,12 +134,12 @@
         </li>
         <li class="nav-item">
           <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>
-            <a href="./pages/login.php" class="nav-link">
+            <a href="./pages/medicos.php" class="nav-link">
           <?php else: ?>
-            <a href="./login.php" class="nav-link">
+            <a href="./medicos.php" class="nav-link">
           <?php endif; ?>
             <i class="nav-icon far fa-plus-square"></i>
-            <p>Login/Register</p>
+            <p>Adicionar medicos</p>
           </a>
         </li>
         <li class="nav-item">
@@ -150,6 +150,16 @@
           <?php endif; ?>
             <i class="nav-icon fa-solid fa-credit-card"></i>
             <p>Pagar Consulta</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>
+            <a href="./pages/pagos.php" class="nav-link">
+          <?php else: ?>
+            <a href="./pagos.php" class="nav-link">
+          <?php endif; ?>
+            <i class="nav-icon fa-solid fa-file-invoice-dollar"></i>
+            <p>Pagos</p>
           </a>
         </li>
         <li class="nav-item">

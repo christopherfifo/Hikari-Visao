@@ -19,13 +19,15 @@ CREATE TABLE IF NOT EXISTS usuarios (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-SELECT * FROM usuarios WHERE email  = 'chris@gmail.com';
+SELECT * FROM usuarios;
 
 CREATE TABLE IF NOT EXISTS PROFISSIONAIS (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
     nome VARCHAR(255) NOT NULL,
     especialidade VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE IF NOT EXISTS EXAMES (
@@ -70,21 +72,24 @@ CREATE TABLE IF NOT EXISTS PAGAMENTOS (
     FOREIGN KEY (id_cliente) REFERENCES usuarios(id)
 );
 
-SELECT * FROM PAGAMENTOS;
+SELECT * FROM PROFISSIONAIS;
 
-INSERT INTO usuarios (email, nome, numero_celular, senha, cpf, rg, data_nascimento, sexo, tipo)
-VALUES 
-('joao.silva@example.com', 'João Silva', '11987654321', 'senhaSegura123', '12345678909', '123456789', '1990-05-15', 'M', 'cliente'),
-('maria.santos@example.com', 'Maria Santos', '11912345678', 'senhaForte456', '98765432100', '987654321', '1995-08-25', 'F', 'cliente'),
-('carlos.moraes@example.com', 'Carlos Moraes', '11876543210', 'minhaSenha789', '12398745600', '123987654', '1988-12-05', 'M', 'cliente'),
-('ana.pereira@example.com', 'Ana Pereira', '11765432109', 'senhaSuper123', '45678912345', '456789123', '1992-03-30', 'F', 'cliente');
 
-INSERT INTO PROFISSIONAIS (nome, especialidade) VALUES 
-('Dr. João Silva', 'Oftalmologista'),
-('Dra. Maria Oliveira', 'Pediatra'),
-('Dr. Carlos Santos', 'Cardiologista'),
-('Dra. Ana Pereira', 'Dermatologista'),
-('Dr. Lucas Almeida', 'Neurologista');
+-- Inserir os profissionais na tabela `usuarios`
+INSERT INTO usuarios (email, nome, numero_celular, senha, cpf, rg, data_nascimento, sexo, tipo) VALUES 
+('joao.silva@example.com', 'Dr. João Silva', '1234567890', 'senha_hash', '123.456.789-00', 'MG-12.345.678', '1970-01-01', 'M', 'profissional'),
+('maria.oliveira@example.com', 'Dra. Maria Oliveira', '1234567891', 'senha_hash', '123.456.789-01', 'MG-12.345.679', '1980-02-02', 'F', 'profissional'),
+('carlos.santos@example.com', 'Dr. Carlos Santos', '1234567892', 'senha_hash', '123.456.789-02', 'MG-12.345.680', '1990-03-03', 'M', 'profissional'),
+('ana.pereira@example.com', 'Dra. Ana Pereira', '1234567893', 'senha_hash', '123.456.789-03', 'MG-12.345.681', '1985-04-04', 'F', 'profissional'),
+('lucas.almeida@example.com', 'Dr. Lucas Almeida', '1234567894', 'senha_hash', '123.456.789-04', 'MG-12.345.682', '1975-05-05', 'M', 'profissional');
+
+-- Inserir os profissionais na tabela `profissionais` usando o id dos usuários recém-inseridos
+INSERT INTO profissionais (id_usuario, nome, especialidade) VALUES 
+((SELECT id FROM usuarios WHERE email = 'joao.silva@example.com'), 'Dr. João Silva', 'Oftalmologista'),
+((SELECT id FROM usuarios WHERE email = 'maria.oliveira@example.com'), 'Dra. Maria Oliveira', 'Pediatra'),
+((SELECT id FROM usuarios WHERE email = 'carlos.santos@example.com'), 'Dr. Carlos Santos', 'Cardiologista'),
+((SELECT id FROM usuarios WHERE email = 'ana.pereira@example.com'), 'Dra. Ana Pereira', 'Dermatologista'),
+((SELECT id FROM usuarios WHERE email = 'lucas.almeida@example.com'), 'Dr. Lucas Almeida', 'Neurologista');
 
 INSERT INTO EXAMES (nome, valor) VALUES 
 ('Exame de Vista', 150.00),
