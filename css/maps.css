@@ -1,0 +1,87 @@
+main {
+    padding: 20px;
+}
+
+.clinic-info {
+    max-width: 1000px; /* aumentei o max-width */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.clinic-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.clinic-details {
+    margin-bottom: 20px;
+}
+
+.clinic-details p {
+    margin: 5px 0;
+}
+
+.slider_container {
+    position: relative;
+    width: 100%;
+    height: 500px; /* tamanho fixo da altura */
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%
+}
+
+.slide {
+    min-width: 100%; /* garante que cada slide ocupe 100% do container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 10px; /* espaçamento entre a imagem e as bordas */
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10; /* garante que os botões fiquem acima das imagens */
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin-block: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+#map iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}

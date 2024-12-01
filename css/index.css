@@ -1,0 +1,41 @@
+
+body {
+    background-color: #f8f9fa;
+}
+.navbar {
+    background-color: #003366; /* Azul escuro */
+}
+.navbar-brand, .nav-link {
+    color: #ffffff !important; /* Texto branco */
+}
+.footer {
+    background-color: #003366; /* Azul escuro */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 30px;
+}
+.hero {
+    background: url('https://58b04f5940c1474e557e363a.redesign.static-01.com/l/images/procrastinaC3A7C3A3o-mC3A9dica-young-black-jack1.jpg') no-repeat center center;
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}

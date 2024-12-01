@@ -1,0 +1,31 @@
+.color{
+    background-color: rgb(215, 223, 223) !important;
+}
+
+.dados{
+    width: 80%;
+    margin: auto;
+}
+
+.corpo-dados{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.efeitos{
+    transition: 0.3s;
+    animation: slideUp 1s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
