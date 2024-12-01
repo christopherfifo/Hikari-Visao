@@ -144,6 +144,16 @@
         </li>
         <li class="nav-item">
           <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>
+            <a href="./pages/pagamentos.php" class="nav-link">
+          <?php else: ?>
+            <a href="./pagamentos.php" class="nav-link">
+          <?php endif; ?>
+            <i class="nav-icon fa-solid fa-credit-card"></i>
+            <p>Pagar Consulta</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>
             <a href="./pages/configuracoes.php" class="nav-link">
           <?php else: ?>
             <a href="./configuracoes.php" class="nav-link">

@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS PAGAMENTOS (
     FOREIGN KEY (id_cliente) REFERENCES usuarios(id)
 );
 
+SELECT * FROM PAGAMENTOS;
+
 INSERT INTO usuarios (email, nome, numero_celular, senha, cpf, rg, data_nascimento, sexo, tipo)
 VALUES 
 ('joao.silva@example.com', 'João Silva', '11987654321', 'senhaSegura123', '12345678909', '123456789', '1990-05-15', 'M', 'cliente'),
