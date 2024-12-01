@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_token'])) {
 }
 
 $user_email = $_SESSION['user_email'];
+$userFoto = $_SESSION['user_foto'];
 
 // Processa a solicitação de alteração de senha ou exclusão de conta
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,6 +64,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $user_id = $user['id'];
 
+                    $file_path = '../db/photos/' . $userFoto;
+
+                    $response = array();
+
+                    if (file_exists($file_path)) {
+                        if (unlink($file_path)) {
+                            $response['status'] = 'success';
+                            $response['message'] = 'Arquivo excluído com sucesso!';
+                        } else {
+                            $response['status'] = 'error';
+                            $response['message'] = 'Erro ao excluir o arquivo.';
+                        }
+                    } else {
+                        $response['status'] = 'error';
+                        $response['message'] = 'Arquivo não encontrado.';
+                    }
+
+                    echo json_encode($response);
+
                     // Exclui registros relacionados em ordem reversa às dependências
                     $stmtDeletePagamentos = $pdo->prepare("DELETE FROM PAGAMENTOS WHERE id_cliente = :id_usuario");
                     $stmtDeletePagamentos->bindParam(':id_usuario', $user_id);
@@ -87,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $pdo->commit();
 
                     session_destroy(); // Destrói a sessão
-                    echo "<script>alert('Conta excluída com sucesso!'); window.location.href = '../entrar.php';</script>";
+                    echo "<script>alert('Conta excluída com sucesso!'); window.location.href = '../index.php';</script>";
                 } else {
                     echo "<script>alert('Senha incorreta.');</script>";
                 }

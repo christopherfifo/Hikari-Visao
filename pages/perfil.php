@@ -21,7 +21,11 @@ include('../libraries/php/perfill.php');
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <?php include('../libraries/aula02.php') ?>
+    <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>
+			<?php include('../libraries/php/principall.php') ?>        
+		<?php else: ?>
+			<?php include('../libraries/php/secundariol.php') ?>         
+		<?php endif; ?>
         <?php include('../includes/components/navbar.php') ?>
         <?php include('../includes/components/saidebar.php') ?>
 
