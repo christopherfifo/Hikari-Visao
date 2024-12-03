@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_token'])) {
     exit;
 }
 
-// Classe para representar consultas
 class Consulta {
     private $pdo;
 
@@ -44,7 +43,6 @@ class Consulta {
     }
 }
 
-// Instância da classe e chamada do método
 $consulta = new Consulta($pdo);
 $id_cliente = $_SESSION['user_id'];
 $consultas_pagas = $consulta->obterConsultasPagas($id_cliente);

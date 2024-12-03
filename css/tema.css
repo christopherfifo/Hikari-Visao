@@ -93,11 +93,11 @@ body.obj.dark {
 }
 
 .overlay.dark {
-  background-image: url(../pictures/login/gif-noite.gif);
+  background-image: url(../pictures/login/gif-noite.webp);
 }
 
 .senha_container.dark {
-  background-image: url(../pictures/login/senha-noite.gif);
+  background-image: url(../pictures/login/senha-noite.webp);
 }
 
 .senha_btn.dark:hover i {

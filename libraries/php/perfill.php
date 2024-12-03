@@ -12,97 +12,109 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_token'])) {
 
 $email_usuario = $_SESSION['user_email'];
 
-// Obtendo informações do usuário
-$sql = "SELECT nome, numero_celular, rg, cpf, data_nascimento, sexo, nome_foto FROM usuarios WHERE email = ?";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$email_usuario]);
+class UserManager {
+    private $pdo;
 
-if ($stmt->rowCount() > 0) {
-    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-    $sexo_usuario = $usuario['sexo'] ?? ''; // Garantir que $sexo_usuario tenha um valor padrão
-    $_SESSION['user_nome'] = $usuario['nome']; // Atualizar o nome do usuário na sessão
-    $_SESSION['user_foto'] = $usuario['nome_foto']; // Atualizar o nome da foto na sessão
-} else {
-    echo "Usuário não encontrado.";
-    exit;
-}
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = $_POST['nome'];
-    $numero_celular = $_POST['numero_celular'];
-    $rg = $_POST['rg'];
-    $cpf = $_POST['cpf'];
-    $data_nascimento = $_POST['data_nascimento'];
-    $sexo = $_POST['sexo'];
+    // Função para obter informações do usuário
+    public function getUserInfo($email) {
+        $sql = "SELECT nome, numero_celular, rg, cpf, data_nascimento, sexo, nome_foto FROM usuarios WHERE email = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-    // Verificar se o arquivo foi enviado
-    if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
-        $foto = $_FILES['foto_perfil'];
+    // Função para atualizar as informações do usuário
+    public function updateUserInfo($email, $data) {
+        $sql = "UPDATE usuarios SET nome = ?, numero_celular = ?, rg = ?, cpf = ?, data_nascimento = ?, sexo = ? WHERE email = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            $data['nome'],
+            $data['numero_celular'],
+            $data['rg'],
+            $data['cpf'],
+            $data['data_nascimento'],
+            $data['sexo'],
+            $email
+        ]);
+    }
 
-        // Verificar tamanho do arquivo (limite de 500MB = 500 * 1024 * 1024 bytes)
-        if ($foto['size'] > 500 * 1024 * 1024) {
-            echo "A imagem excede o limite de 500MB.";
-            exit;
-        }
-
-        // Diretório para salvar a imagem
+    // Função para atualizar a foto do perfil
+    public function updateProfilePhoto($email, $photo) {
         $diretorioFotos = '../db/photos/';
         if (!is_dir($diretorioFotos)) {
-            mkdir($diretorioFotos, 0777, true); // Criar a pasta se não existir
+            mkdir($diretorioFotos, 0777, true);
         }
 
-        // Verificar se já existe uma imagem salva no banco
         $sqlFoto = "SELECT nome_foto FROM usuarios WHERE email = ?";
-        $stmtFoto = $pdo->prepare($sqlFoto);
-        $stmtFoto->execute([$email_usuario]);
+        $stmtFoto = $this->pdo->prepare($sqlFoto);
+        $stmtFoto->execute([$email]);
         $fotoExistente = $stmtFoto->fetchColumn();
 
         if ($fotoExistente) {
-            // Substituir a imagem antiga
             $caminhoFotoExistente = $diretorioFotos . $fotoExistente;
             if (file_exists($caminhoFotoExistente)) {
-                unlink($caminhoFotoExistente); // Apagar o arquivo antigo
+                unlink($caminhoFotoExistente);
             }
         }
 
-        // Gerar um novo nome único para a imagem
-        $extensao = pathinfo($foto['name'], PATHINFO_EXTENSION);
-        $nomeArquivo = uniqid('foto_', true) . '.' . $extensao; // Prefixo 'foto_' para tornar o nome mais identificável
-
-        // Salvar a imagem no diretório
+        $extensao = pathinfo($photo['name'], PATHINFO_EXTENSION);
+        $nomeArquivo = uniqid('foto_', true) . '.' . $extensao;
         $caminhoFinal = $diretorioFotos . $nomeArquivo;
-        if (move_uploaded_file($foto['tmp_name'], $caminhoFinal)) {
-            // Atualizar o nome da imagem no banco
+
+        if (move_uploaded_file($photo['tmp_name'], $caminhoFinal)) {
             $sqlUpdateFoto = "UPDATE usuarios SET nome_foto = ? WHERE email = ?";
-            $stmtUpdateFoto = $pdo->prepare($sqlUpdateFoto);
-            $stmtUpdateFoto->execute([$nomeArquivo, $email_usuario]);
+            $stmtUpdateFoto = $this->pdo->prepare($sqlUpdateFoto);
+            $stmtUpdateFoto->execute([$nomeArquivo, $email]);
         } else {
-            echo "Erro ao salvar a imagem.";
-            exit;
+            throw new Exception("Erro ao salvar a imagem.");
         }
-    }
-
-    // Atualizar outras informações do usuário
-    $sql = "UPDATE usuarios SET nome = ?, numero_celular = ?, rg = ?, cpf = ?, data_nascimento = ?, sexo = ? WHERE email = ?";
-    $stmt = $pdo->prepare($sql);
-    if ($stmt->execute([$nome, $numero_celular, $rg, $cpf, $data_nascimento, $sexo, $email_usuario])) {
-        // Dados atualizados com sucesso, recarregar as informações
-        $sql = "SELECT nome, numero_celular, rg, cpf, data_nascimento, sexo, nome_foto FROM usuarios WHERE email = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$email_usuario]);
-
-        if ($stmt->rowCount() > 0) {
-            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-            $sexo_usuario = $usuario['sexo'] ?? ''; // Atualizar a variável $sexo_usuario
-            $_SESSION['user_nome'] = $usuario['nome']; // Atualizar o nome do usuário na sessão
-            $_SESSION['user_foto'] = $usuario['nome_foto']; // Atualizar o nome da foto na sessão
-        } else {
-            echo "Usuário não encontrado.";
-            exit;
-        }
-    } else {
-        echo "Erro ao atualizar os dados.";
-        exit;
     }
 }
-?>
+
+$userManager = new UserManager($pdo);
+
+try {
+    // Obtendo informações do usuário
+    $usuario = $userManager->getUserInfo($email_usuario);
+
+    if (!$usuario) {
+        echo "Usuário não encontrado.";
+        exit;
+    }
+
+    $sexo_usuario = $usuario['sexo'] ?? '';
+    $_SESSION['user_nome'] = $usuario['nome'];
+    $_SESSION['user_foto'] = $usuario['nome_foto'];
+
+    // Processando o formulário
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = [
+            'nome' => $_POST['nome'],
+            'numero_celular' => $_POST['numero_celular'],
+            'rg' => $_POST['rg'],
+            'cpf' => $_POST['cpf'],
+            'data_nascimento' => $_POST['data_nascimento'],
+            'sexo' => $_POST['sexo']
+        ];
+
+        // Atualizar as informações do usuário
+        $userManager->updateUserInfo($email_usuario, $data);
+
+        // Verificar e atualizar a foto de perfil
+        if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
+            $userManager->updateProfilePhoto($email_usuario, $_FILES['foto_perfil']);
+        }
+
+        // Recarregar as informações do usuário
+        $usuario = $userManager->getUserInfo($email_usuario);
+        $_SESSION['user_nome'] = $usuario['nome'];
+        $_SESSION['user_foto'] = $usuario['nome_foto'];
+    }
+} catch (Exception $e) {
+    echo "Erro: " . $e->getMessage();
+    exit;
+}

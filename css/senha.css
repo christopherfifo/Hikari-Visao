@@ -4,7 +4,7 @@
   display: none;
   flex-direction: column;
   padding: 10px 20px 0 20px;
-  background-image: url(../pictures/login/senha-dia.gif);
+  background-image: url(../pictures/login/senha-dia.webp);
   background-size: cover; /* Ajusta a imagem para cobrir todo o contêiner */
   background-position: center; /* Centraliza a imagem no contêiner */
   overflow-y: auto;

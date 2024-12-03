@@ -80,7 +80,5 @@ include('../libraries/php/pagosl.php');
             </div>
         </div>
     </div>
-
-
 </body>
 </html>

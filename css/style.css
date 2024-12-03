@@ -288,7 +288,7 @@ input {
 
 /* aqui ele fica com o dobro do tamanho da overlay-container, o que deixaria a parte do regitro a mostra, mas ele puxa para esquerda ai fica do login*/
 .overlay {
-  background-image: url(../pictures/login/gif-dia.gif);
+  background-image: url(../pictures/login/gif-dia.webp);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
