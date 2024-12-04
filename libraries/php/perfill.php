@@ -35,7 +35,7 @@ class UserManager {
             $data['numero_celular'],
             $data['rg'],
             $data['cpf'],
-            $data['data_nascimento'],
+            !empty($data['data_nascimento']) ? $data['data_nascimento'] : null,
             $data['sexo'],
             $email
         ]);
@@ -117,3 +117,4 @@ try {
     echo "Erro: " . $e->getMessage();
     exit;
 }
+?>

@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha VARCHAR(255) NOT NULL,
     cpf VARCHAR(20)  NULL,
     rg VARCHAR(20)  NULL,
-    data_nascimento DATE,
+    data_nascimento DATE NULL,
     sexo ENUM('M', 'F', 'N'),
     nome_foto VARCHAR(255),
     tipo ENUM('cliente', 'profissional', 'adm') DEFAULT 'cliente',

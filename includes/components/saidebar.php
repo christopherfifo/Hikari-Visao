@@ -138,8 +138,18 @@
           <?php else: ?>
             <a href="./medicos.php" class="nav-link">
           <?php endif; ?>
-            <i class="nav-icon far fa-plus-square"></i>
+            <i class="nav-icon fa-solid fa-user-doctor"></i>
             <p>Adicionar medicos</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <?php if (defined('CONTEXT') && CONTEXT === 'main'): ?>
+            <a href="./pages/exames.php" class="nav-link">
+          <?php else: ?>
+            <a href="./exames.php" class="nav-link">
+          <?php endif; ?>
+            <i class="nav-icon fa-solid fa-syringe"></i>
+            <p>Adicionar exames</p>
           </a>
         </li>
         <li class="nav-item">
