@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             echo json_encode(['status' => 'success', 'message' => 'Consulta marcada com sucesso!']);
-            header('Location: ../principal.php');
+            header('Location: agenda.php');
             exit;
         } catch (PDOException $e) {
             echo json_encode(['status' => 'error', 'message' => 'Erro no banco de dados: ' . $e->getMessage()]);
