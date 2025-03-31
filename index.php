@@ -27,7 +27,7 @@
 
         <nav class="header__nav">
           <ul class="nav__ul">
-            <li class="nav__li"><a class="nav__a" href="http://localhost/projeto-clinica/pages/login.php">Login</a></li>
+            <li class="nav__li"><a class="nav__a" href="http://localhost/Hikari-Visao/pages/login.php">Login</a></li>
             <li class="nav__li"><a class="nav__a" href="#">Sobre nós</a></li>
             <li class="nav__li"><a class="nav__a" href="#">Nosso time</a></li>
             <li class="nav__li"><a class="nav__a" href="#">Contato</a></li>

@@ -67,7 +67,7 @@ include('../libraries/php/editarl.php');
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                     </form>
-                    <a href="http://localhost/projeto-clinica/pages/usuarios.php" style="margin-top:10px;"><button type="submit" class="btn btn-primary" style="background-color: red;margin-top:10px;">Cancelar</button></a>
+                    <a href="http://localhost/Hikari-Visao/pages/usuarios.php" style="margin-top:10px;"><button type="submit" class="btn btn-primary" style="background-color: red;margin-top:10px;">Cancelar</button></a>
                 <?php else: ?>
                     <div class="alert alert-warning">Nenhum usuário encontrado para editar.</div>
                 <?php endif; ?>

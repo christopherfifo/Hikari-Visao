@@ -95,3 +95,4 @@ INSERT INTO EXAMES (nome, valor) VALUES
 ('Raios X', 90.00);
 
 
+SELECT * FROM usuarios;
